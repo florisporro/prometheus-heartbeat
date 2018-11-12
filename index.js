@@ -30,7 +30,7 @@ server.get('/heartbeat/:name', (req, res) => {
 
   heartbeats.inc({ device: req.params.name }, 1, Date.now());
   
-  log(Heartbeat received for " + req.params.name)
+  log("Heartbeat received for " + req.params.name)
   res.json({ name: req.params.name, success: true });
 });
 
