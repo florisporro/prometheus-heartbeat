@@ -1,0 +1,16 @@
+{
+  "name": "prometheus_heartbeat_metrics",
+  "version": "1.0.0",
+  "description": "Report the online / offline status of devices to prometheus, using simple get requests.",
+  "main": "index.js",
+  "author": "Floris Porro",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "moment": "^2.22.2",
+    "prom-client": "^11.1.3"
+  }
+}
