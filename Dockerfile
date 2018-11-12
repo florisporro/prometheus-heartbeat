@@ -15,4 +15,8 @@ COPY . .
 
 # Expose API port to the outside
 EXPOSE 3000
+
+# This needs to be used to authenticate with the x-secret header. Override this with the run command.
+ENV SECRET=defaultsecret
+
 CMD [ "npm", "start" ]

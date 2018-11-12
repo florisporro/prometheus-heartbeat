@@ -16,17 +16,21 @@ const heartbeats = new client.Counter({
   labelNames: ['device'],
 });
 
+function log(msg) {
+  console.log(moment().format('YYYY/MM/DD - HH:mm:ss') + " - " + msg);
+}
+
 server.get('/heartbeat/:name', (req, res) => {
   var token = req.headers['x-secret'] || false;
   if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
   if (token !== process.env.SECRET) {
-    console.log("Request denied because of invalid token: " + token);
+    log("Request denied because of invalid token: " + token);
     return res.status(401).json({ auth: false, message: 'Invalid token provided.' });
   }
 
   heartbeats.inc({ device: req.params.name }, 1, Date.now());
   
-  console.log(moment().format('YYYY/MM/DD - HH:mm:ss') + " - Heartbeat received for " + req.params.name)
+  log(Heartbeat received for " + req.params.name)
   res.json({ name: req.params.name, success: true });
 });
 
@@ -43,6 +47,6 @@ server.use(function (err, req, res, next) {
   res.status(500).json({ success: false, error: err.message });
 });
 
-console.log('Server listening to 3000, metrics exposed on /metrics endpoint');
-console.log('Listening for heartbeats on /heartbeat/:name and authorizing with secret: ' + process.env.SECRET);
+log('Server listening to 3000, metrics exposed on /metrics endpoint');
+log('Listening for heartbeats on /heartbeat/:name and authorizing with secret: ' + process.env.SECRET);
 server.listen(3000);
